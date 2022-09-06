@@ -1,10 +1,5 @@
 import smtplib
-import socket
-import sys
-import imapclient
-import pyzmail
-import pprint
-
+import tweepy
 
 def emailAddressList(receiver):
     text = receiver
@@ -19,7 +14,7 @@ def emailAddressList(receiver):
 
 
 def SendingMails(email_address, password, subject, receiver, message):
-    body = f"Subject: {subject}. \n\n {message}"
+    body = f"Subject: {subject}. \n\n {message}\n Sent with influencer-all-in-one.com"
     emails = emailAddressList(receiver)
     try:
         smtp_object = smtplib.SMTP('smtp.gmail.com', 587)
@@ -44,4 +39,20 @@ def SendingMails(email_address, password, subject, receiver, message):
     except:
         result = 'invalid'
         return result
+
+
+def TweetAPost(access_token, access_secret, message):
+    api_key = ''
+    api_secret = ''
+    auth = tweepy.OAuthHandler(api_key, api_secret)
+    auth.set_access_token(access_token, access_secret)
+    api = tweepy.API(auth)
+    if api.verify_credentials():
+
+        result = 'valid'
+        api.update_status(status=message)
+        return result
+    else:
+        return 'invalid'
+
 

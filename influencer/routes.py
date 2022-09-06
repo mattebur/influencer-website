@@ -1,7 +1,8 @@
 from influencer import app
 from flask import render_template, request, flash
-from influencer.forms import GmailAccountForm
-from influencer.my_functions import SendingMails
+from influencer.forms import GmailAccountForm, TwitterAccountForm
+from influencer.my_functions import SendingMails, TweetAPost
+
 
 
 @app.route('/')
@@ -10,9 +11,18 @@ def home_page():
     return render_template('home.html')
 
 
-@app.route('/twitter')
+@app.route('/twitter', methods=['GET', 'POST'])
 def twitter_page():
-    return render_template('twitter.html')
+    form = TwitterAccountForm()
+    if form.validate_on_submit():
+        tweet = TweetAPost(access_token=form.access_token.data,
+                           access_secret=form.access_token_secret.data,
+                           message=form.message.data)
+        if tweet == 'valid':
+            flash('Tweet posted', category='success')
+        else:
+            flash('Something went wrong', category='danger')
+    return render_template('twitter.html', form=form)
 
 
 @app.route('/gmail', methods=['GET', 'POST'])

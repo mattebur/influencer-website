@@ -10,4 +10,11 @@ class GmailAccountForm(FlaskForm):
     subject = StringField(label='Subject', validators=[DataRequired()])
     receiver = StringField(label='Add receiver separated by ;', validators=[DataRequired()])
     message = TextAreaField(label='Enter your message here', validators=[DataRequired()])
-    submit = SubmitField(label='Submit')
+    submit = SubmitField(label='Send Email')
+
+
+class TwitterAccountForm(FlaskForm):
+    access_token = PasswordField(label='Access Token', validators=[DataRequired()])
+    access_token_secret = PasswordField(label='Access Secret Token', validators=[DataRequired()])
+    message = TextAreaField(label='Message to Tweet', validators=[DataRequired()])
+    submit = SubmitField(label='Tweet')
