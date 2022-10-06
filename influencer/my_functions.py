@@ -1,5 +1,6 @@
 import smtplib
 import tweepy
+from PIL import Image
 
 def emailAddressList(receiver):
     text = receiver
@@ -42,13 +43,12 @@ def SendingMails(email_address, password, subject, receiver, message):
 
 
 def TweetAPost(access_token, access_secret, message):
-    api_key = ''
-    api_secret = ''
+    api_key = '9jvOJOESNNqfxwmOdJOXms6EQ'
+    api_secret = 'CGmnC3gvT8YZNbI8WHoV25fxLeTf6xlLw89UJ9VTFQ9QNHp0mb'
     auth = tweepy.OAuthHandler(api_key, api_secret)
     auth.set_access_token(access_token, access_secret)
     api = tweepy.API(auth)
     if api.verify_credentials():
-
         result = 'valid'
         api.update_status(status=message)
         return result

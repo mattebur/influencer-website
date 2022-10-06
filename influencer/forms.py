@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, FileField
 from wtforms.validators import Email, DataRequired, ValidationError, Length
 from influencer.my_functions import SendingMails
 
@@ -17,4 +17,5 @@ class TwitterAccountForm(FlaskForm):
     access_token = PasswordField(label='Access Token', validators=[DataRequired()])
     access_token_secret = PasswordField(label='Access Secret Token', validators=[DataRequired()])
     message = TextAreaField(label='Message to Tweet', validators=[DataRequired()])
+    file = FileField(label='Add photo')
     submit = SubmitField(label='Tweet')
